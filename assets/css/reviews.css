@@ -1,58 +1,94 @@
+.reviews{
+  background: rgb(68,189,172);
+  background: linear-gradient(90deg, rgba(68,189,172,1) 0%, rgba(0,123,139,1) 33%, rgba(86,79,157,1) 66%, rgba(65,44,109,1) 100%);
+  background: -moz-linear-gradient(90deg, rgba(68,189,172,1) 0%, rgba(0,123,139,1) 33%, rgba(86,79,157,1) 66%, rgba(65,44,109,1) 100%);
+  background: -webkit-linear-gradient(90deg, rgba(68,189,172,1) 0%, rgba(0,123,139,1) 33%, rgba(86,79,157,1) 66%, rgba(65,44,109,1) 100%);
+  background: linear-gradient(90deg, rgba(68,189,172,1) 0%, rgba(0,123,139,1) 33%, rgba(86,79,157,1) 66%, rgba(65,44,109,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#44bdac",endColorstr="#412c6d",GradientType=1);
+}
+.reviews h2.section-title{
+  color: white !important;
+}
 .carousel {
-    position: relative;
-    width: 100%;
-    max-width: 1920px;
-    margin: auto;
-    overflow: hidden;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-  }
-  
-  .carousel-inner {
-    display: flex;
-    transition: transform 0.5s ease;
-  }
-  
-  .carousel-slide {
-    flex: 1 0 33.33%;
-    box-sizing: border-box;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .review {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-  }
-  
-  .name {
-    font-size: 1em;
-    font-weight: bold;
-  }
-  
-  .rating {
-    font-size: 1.5em;
-    color: gold;
-  }
-  
-  .carousel-control-prev,
-  .carousel-control-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    border: none;
-    color: white;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 1;
-  }
-  
-  .carousel-control-prev {
-    left: 10px;
-  }
-  
-  .carousel-control-next {
-    right: 10px;
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.carousel-inner {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carousel-slide {
+  flex: 1 0 33.33%;
+  box-sizing: border-box;
+  padding: 20px;
+  text-align: center;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+}
+
+.review {
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+
+.name {
+  font-size: 1em;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.rating {
+  font-size: 1.5em;
+  color: gold;
+  margin-bottom: 10px;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1;
+  display: none; /* Скрываем стрелки по умолчанию */
+}
+
+.carousel:hover .carousel-control-prev,
+.carousel:hover .carousel-control-next {
+  display: block; /* Показываем стрелки при наведении */
+}
+
+/* Стили для звезд */
+.star {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background: gold;
+  clip-path: polygon(
+    50% 0%, 63% 38%, 100% 38%, 69% 59%, 
+    82% 100%, 50% 75%, 18% 100%, 31% 59%, 
+    0% 38%, 37% 38%
+  );
 }
