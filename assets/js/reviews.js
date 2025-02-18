@@ -55,7 +55,7 @@ class Carousel {
 
     this.currentSlide = (index + totalSlides) % totalSlides;
     const isMobile = window.innerWidth <= 768;
-    const offset = this.currentSlide * -1200 / this.slidesPerView; // высота одного слайда на мобильных
+    const offset = this.currentSlide * -228 / this.slidesPerView; // высота одного слайда на мобильных
 
     this.carouselInner.style.transform = isMobile ? `translateY(${offset}px)` : `translateX(${offset}%)`;
     this.carouselInner.style.transition = 'transform 0.5s ease-in-out';
