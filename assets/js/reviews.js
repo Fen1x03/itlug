@@ -4,6 +4,7 @@ class Carousel {
     this.slidesPerView = slidesPerView;
     this.currentSlide = 0;
     this.interval = interval;
+    this.autoScrollInterval = null;
 
     this.carouselInner = document.querySelector('.carousel-inner');
     this.initCarousel();
@@ -11,12 +12,20 @@ class Carousel {
 
   initCarousel() {
     this.populateSlides();
-    this.cloneSlides();
-    this.showSlide(this.currentSlide);
+    this.updateOrientation();
     this.startAutoScroll();
+    window.addEventListener('resize', this.updateOrientation.bind(this));
+  }
+
+  updateOrientation() {
+    const isMobile = window.innerWidth <= 768;
+    this.carouselInner.style.flexDirection = isMobile ? 'column' : 'row';
+    this.showSlide(this.currentSlide);
   }
 
   populateSlides() {
+    this.carouselInner.innerHTML = ''; // Сбросить предыдущий контент
+
     this.reviews.forEach(review => {
       const slide = document.createElement('div');
       slide.classList.add('carousel-slide');
@@ -32,26 +41,35 @@ class Carousel {
 
       this.carouselInner.appendChild(slide);
     });
-  }
 
-  cloneSlides() {
-    const slides = this.carouselInner.children;
-
-    for (let i = 0; i < this.slidesPerView; i++) {
-      const clone = slides[i].cloneNode(true);
+    // Клонируем слайды для циклической прокрутки
+    const slides = Array.from(this.carouselInner.children);
+    slides.forEach(slide => {
+      const clone = slide.cloneNode(true);
       this.carouselInner.appendChild(clone);
-    }
+    });
   }
 
   showSlide(index) {
-    const totalSlides = this.reviews.length;
+    const totalSlides = this.reviews.length * 2; // Учитываем клонированные слайды
 
     this.currentSlide = (index + totalSlides) % totalSlides;
-    const offset = this.currentSlide * -100 / this.slidesPerView;
-    this.carouselInner.style.transform = `translateX(${offset}%)`;
+    const isMobile = window.innerWidth <= 768;
+    const offset = this.currentSlide * -1200 / this.slidesPerView; // высота одного слайда на мобильных
 
-    // Плавность прокрутки
+    this.carouselInner.style.transform = isMobile ? `translateY(${offset}px)` : `translateX(${offset}%)`;
     this.carouselInner.style.transition = 'transform 0.5s ease-in-out';
+
+    setTimeout(() => {
+      if (this.currentSlide >= totalSlides / 2) {
+        this.currentSlide = 0;
+        this.carouselInner.style.transition = 'none';
+        this.carouselInner.style.transform = isMobile ? 'translateY(0)' : 'translateX(0)';
+        setTimeout(() => {
+          this.carouselInner.style.transition = 'transform 0.5s ease-in-out';
+        }, 50);
+      }
+    }, 500);
   }
 
   nextSlide() {
@@ -63,9 +81,13 @@ class Carousel {
   }
 
   startAutoScroll() {
-    setInterval(() => {
+    this.autoScrollInterval = setInterval(() => {
       this.nextSlide();
     }, this.interval);
+  }
+
+  stopAutoScroll() {
+    clearInterval(this.autoScrollInterval);
   }
 }
 

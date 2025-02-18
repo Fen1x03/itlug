@@ -12,22 +12,21 @@
 .carousel {
   position: relative;
   width: 100%;
-  max-width: 900px;
   margin: auto;
   overflow: hidden;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background-color: #f9f9f9;
+  background-color: transparent;
 }
 
 .carousel-inner {
   display: flex;
   transition: transform 0.5s ease;
+  flex-wrap: nowrap;
 }
 
 .carousel-slide {
-  flex: 1 0 33.33%;
+  flex: 0 0 calc(33.33% - 20px);
   box-sizing: border-box;
+  height: 226px;
   padding: 20px;
   text-align: center;
   background-color: white;
@@ -72,15 +71,14 @@
   padding: 10px;
   cursor: pointer;
   z-index: 1;
-  display: none; /* Скрываем стрелки по умолчанию */
+  display: none;
 }
 
 .carousel:hover .carousel-control-prev,
 .carousel:hover .carousel-control-next {
-  display: block; /* Показываем стрелки при наведении */
+  display: block;
 }
 
-/* Стили для звезд */
 .star {
   display: inline-block;
   width: 1em;
@@ -91,4 +89,17 @@
     82% 100%, 50% 75%, 18% 100%, 31% 59%, 
     0% 38%, 37% 38%
   );
+}
+
+@media (max-width: 768px) {
+  .carousel-inner {
+    flex-direction: column;
+    height: 678px;
+  }
+
+  .carousel-slide {
+    flex: 0 0 33.33333333%;
+    width: 100%;
+    margin: 10px 0;
+  }
 }
