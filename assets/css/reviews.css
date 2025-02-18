@@ -1,0 +1,70 @@
+.carousel {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.carousel-inner {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carousel-slide {
+  flex: 1 0 33.33%;
+  box-sizing: border-box;
+  padding: 20px;
+  text-align: center;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+}
+
+.review {
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+
+.name {
+  font-size: 1em;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.rating {
+  font-size: 1.5em;
+  color: gold;
+  margin-bottom: 10px;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1;
+  display: none; /* Скрываем стрелки по умолчанию */
+}
+
+.carousel:hover .carousel-control-prev,
+.carousel:hover .carousel-control-next {
+  display: block; /* Показываем стрелки при наведении */
+}
