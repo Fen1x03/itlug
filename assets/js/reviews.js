@@ -21,11 +21,13 @@ class Carousel {
       const slide = document.createElement('div');
       slide.classList.add('carousel-slide');
 
+      const stars = Array(review.rating).fill('<span class="star"></span>').join('');
+
       slide.innerHTML = `
         <img class="avatar" src="${review.avatar}" alt="Avatar">
         <div class="review">${review.text}</div>
         <div class="name">${review.name}</div>
-        <div class="rating">${'⭐️'.repeat(review.rating)}</div>
+        <div class="rating">${stars}</div>
       `;
 
       this.carouselInner.appendChild(slide);

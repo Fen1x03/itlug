@@ -1,3 +1,14 @@
+.reviews{
+  background: rgb(68,189,172);
+  background: linear-gradient(90deg, rgba(68,189,172,1) 0%, rgba(0,123,139,1) 33%, rgba(86,79,157,1) 66%, rgba(65,44,109,1) 100%);
+  background: -moz-linear-gradient(90deg, rgba(68,189,172,1) 0%, rgba(0,123,139,1) 33%, rgba(86,79,157,1) 66%, rgba(65,44,109,1) 100%);
+  background: -webkit-linear-gradient(90deg, rgba(68,189,172,1) 0%, rgba(0,123,139,1) 33%, rgba(86,79,157,1) 66%, rgba(65,44,109,1) 100%);
+  background: linear-gradient(90deg, rgba(68,189,172,1) 0%, rgba(0,123,139,1) 33%, rgba(86,79,157,1) 66%, rgba(65,44,109,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#44bdac",endColorstr="#412c6d",GradientType=1);
+}
+.reviews h2.section-title{
+  color: white !important;
+}
 .carousel {
   position: relative;
   width: 100%;
@@ -67,4 +78,17 @@
 .carousel:hover .carousel-control-prev,
 .carousel:hover .carousel-control-next {
   display: block; /* Показываем стрелки при наведении */
+}
+
+/* Стили для звезд */
+.star {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background: gold;
+  clip-path: polygon(
+    50% 0%, 63% 38%, 100% 38%, 69% 59%, 
+    82% 100%, 50% 75%, 18% 100%, 31% 59%, 
+    0% 38%, 37% 38%
+  );
 }
