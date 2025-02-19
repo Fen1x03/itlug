@@ -17,6 +17,7 @@ class App {
     activeClass: 'active',
     root: null,
     rootMargin: '-100px 0px -100px 0px',
+    //FIX замена threshold: 0.4->0.1
     threshold: 0.1
   }
 
