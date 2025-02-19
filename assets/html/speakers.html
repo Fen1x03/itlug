@@ -3,9 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Наши лекторы “ИТ по-Лугански”</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/newstyle.css">
+    <link rel="stylesheet" href="../css/speakers.css">
 </head>
 <body>
-    
+    <header class="header">
+        <div class="container">
+            <nav class="nav header__nav">
+                <div class="header__logo">
+                    <img src="../img/logo-it.png" alt="Сообщество ИТ специалистов г. Луганска">
+                </div>
+                <div class="header__menu">
+                    <ul class="nav__list header__nav-menu">
+                        <li class="nav__item">
+                            <a class="nav__link" href="#offer" data-scroll-to="offer">В начало</a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="#about" data-scroll-to="about">О курсе</a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="#categories" data-scroll-to="categories">Обучаемся</a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="#stats" data-scroll-to="stats">Статистика</a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="#announce" data-scroll-to="announce">Анонсы</a>
+                        </li>
+                    </ul>
+                    <ul class="nav__list header__nav-account">
+                        <li class="nav__item">
+                            <a class="nav__link" href="#" data-modal-open="login">Авторизация</a>
+                        </li>
+                    </ul>
+                </div>
+                <button class="header__burger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+    <section class="lectors">
+        <div class="container">
+            <h1>Наши лекторы</h1>
+
+            <div class="lector-card">
+                <div class="lector-photo">
+                    <img src="../img/speakers/komashka.JPG" alt="Виталий Михайлович Комашка">
+                </div>
+                <div class="lector-info">
+                    <h2>Виталий Михайлович Комашка</h2>
+                    <p class="lector-nickname">@mihalichman</p>
+                    <p class="lector-description">Инженер-программист с 15-летним стажем, ведущий специалист в
+                        области ИТ-технологий.</p>
+                    <ul class="lector-skills">
+                        <li><i class="star-ico"></i> Backend</li>
+                        <li><i class="star-ico"></i> Развертывания сервисов</li>
+                        <li><i class="star-ico"></i> Развертывания мобильных приложений</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="lector-card">
+                <div class="lector-photo">
+                    <img src="../img/speakers/saratovskiy.JPG" alt="Артем Николаевич Саратовский">
+                </div>
+                <div class="lector-info">
+                    <h2>Артем Николаевич Саратовский</h2>
+                    <p class="lector-nickname">@tm_project</p>
+                    <p class="lector-description">Лектор проекта, специалист в области Frontend разработки.</p>
+                    <ul class="lector-skills">
+                        <li><i class="star-ico"></i> Frontend</li>
+                        <li><i class="star-ico"></i> Web-дизайн</li>
+                        <li><i class="star-ico"></i> Концепция мобильного приложения</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="lector-card">
+                <div class="lector-photo">
+                    <img src="../img/speakers/ribalko.JPG" alt="Виктория Владимировна Рыбалко">
+                </div>
+                <div class="lector-info">
+                    <h2>Виктория Владимировна Рыбалко</h2>
+                    <p class="lector-nickname">@vikki_fox_designer</p>
+                    <p class="lector-description">Веб-дизайнер ИИ, отвечает за оформление методического и графического
+                        материалов, оформление программ для практических заданий.</p>
+                    <ul class="lector-skills">
+                        <li><i class="star-ico"></i> Веб-дизайн</li>
+                        <li><i class="star-ico"></i> Веб-дизайн</li>
+                        <li><i class="star-ico"></i> Веб-дизайн</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="lector-card">
+                <div class="lector-photo">
+                    <img src="../img/speakers/zaharov.JPG" alt="Сергей Геннадиевич Захаров">
+                </div>
+                <div class="lector-info">
+                    <h2>Сергей Геннадиевич Захаров</h2>
+                    <p class="lector-nickname">@Deep_Grey_Angel</p>
+                    <p class="lector-description">Техник по информационным системам, обеспечивает поддержку ПО
+                        техническое обслуживание аппаратной части цифровых сетей.</p>
+                    <ul class="lector-skills">
+                        <li><i class="star-ico"></i> Профориентация</li>
+                        <li><i class="star-ico"></i> Доп. навыки в разработке</li>
+                        <li><i class="star-ico"></i> Формирования навыков взаимодействия в команде</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="container">
+            <hr class="footer-hr">
+            <nav class="footer-content">
+                <ul class="footer-col footer-logos">
+                    <li class="footer-logo-item">
+                        <img class="footer-logo" src="../img/logo.svg" alt="ИТ по-Лугански">
+                        <p class="footer-title">Курс лекций и семинаров
+                            <br> “ИТ по-Лугански”</p>
+                    </li>
+                    <li class="footer-logo-item">
+                        <a href="https://президентскиегранты.рф/">
+                            <img class="footer-logo" src="../img/logo-grand.svg" alt="Фонд президентских грантов">
+                        </a>
+                    </li>
+                </ul>
+                <ul class="footer-col footer-nav">
+                    <li class="footer-nav-item">
+                        <a class="footer-link" href="#about" data-scroll-to="about">О курсе</a>
+                    </li>
+                    <li class="footer-nav-item">
+                        <a class="footer-link" href="#categories" data-scroll-to="categories">Программа</a>
+                    </li>
+                    <li class="footer-nav-item">
+                        <a class="footer-link" href="#">Лекции</a>
+                    </li>
+                    <li class="footer-nav-item">
+                        <a class="footer-link" href="#announce" data-scroll-to="announce">Анонсы</a>
+                    </li>
+                    <li class="footer-nav-item">
+                        <a class="footer-link" href="#">Спикеры</a>
+                    </li>
+                </ul>
+                <ul class="footer-col footer-nav footer-nav-2">
+                    <li class="footer-nav-item">
+                        <a class="footer-link" href="#">Хакатон</a>
+                    </li>
+                    <li class="footer-nav-item">
+                        <a class="footer-link" href="#">Поддержка</a>
+                    </li>
+                    <li class="footer-nav-item">
+                        <a class="footer-link" href="#">Проекты</a>
+                    </li>
+                    <li class="footer-nav-item">
+                        <a class="footer-link" href="#">Сообщество</a>
+                    </li>
+                    <li class="footer-nav-item">
+                        <a class="footer-link" href="#">Коворкинг</a>
+                    </li>
+                </ul>
+                <ul class="footer-col footer-contact">
+                    <li class="footer-nav-item">
+                        <a class="footer-link" href="https://t.me/it_po_lug">t.me/it_po_lug</a>
+                    </li>
+                    <li class="footer-nav-item">
+                        <a class="footer-link" href="https://t.me/luganskIt">t.me/luganskIt</a>
+                    </li>
+                    <li class="footer-nav-item">
+                        <a class="footer-link" href="https://vk.com/luganskdev">vk.com/luganskdev</a>
+                    </li>
+                    <li class="footer-nav-item">
+                        <a class="footer-link" href="tel:+79595555245">+7 (959) 55 55 245</a>
+                    </li>
+                    <li class="footer-nav-item">
+                        <address class="footer-address">г.&nbsp;Луганск, ул.&nbsp;Ленина, д.&nbsp;38, стр.&nbsp;3</address>
+                    </li>
+                </ul>
+            </nav>
+            <div class="footer-content">
+                <div class="footer-col footer-copyright">
+                    <p>Курс “ИТ по-Лугански”, 2024-2025 © Все права защищены.</p>
+                    <p>Сообщество ИТ специалистов Луганска</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="../js/app.js" defer></script>
 </body>
 </html>

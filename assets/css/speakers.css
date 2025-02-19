@@ -1,0 +1,122 @@
+.lectors {
+    background-color: #f5f7fa;
+    padding: 50px 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #343a40;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.lector-card {
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center; /* Вертикальное выравнивание по центру */
+    margin-bottom: 30px;
+    padding: 30px;
+    transition: transform 0.2s ease-in-out;
+    min-height: 250px;
+}
+
+.lector-card:hover {
+    transform: translateY(-5px);
+}
+
+.lector-photo {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    margin-right: 30px;
+    box-shadow: 0 0 0 6px rgba(108, 117, 125, 0.15);
+}
+
+.star-ico{
+    content: url('../img/speakers/star.png');
+    width: 20px; /* Задайте ширину */
+    height: 20px; /* Задайте высоту */
+    margin-right: 10px;
+    opacity: 0.6;
+}
+
+.lector-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+}
+
+.lector-photo:hover img {
+    transform: scale(1.1);
+}
+
+.lector-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* Вертикальное выравнивание сверху */
+    color: #495057;
+    width: -webkit-fill-available;
+}
+
+.lector-info h2 {
+    margin: 0 0 5px;
+    /* Чуть меньше отступ */
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.lector-info p {
+    margin: 5px 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #6c757d;
+}
+
+.lector-nickname {
+    font-style: italic;
+    color: #868e96;
+    font-size: 0.9rem;
+    margin-bottom: 10px; /* Добавляем отступ снизу */
+}
+
+.lector-description {
+    margin-bottom: 15px;
+}
+
+.lector-skills {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    /* margin-top: auto;  Убираем auto, так как не нужно выравнивать по низу */
+}
+
+.lector-skills li {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #495057;
+    display: flex;
+    align-items: center;
+}
+
+.lector-skills li i {
+    margin-right: 10px;
+    color: #5cb85c;
+    font-size: 1.2rem;
+}
+
+.lectors .lector-card:nth-child(odd) {
+    flex-direction: row-reverse;
+}
