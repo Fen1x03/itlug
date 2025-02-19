@@ -1,0 +1,91 @@
+  
+  .masMedia .container {
+    display: flex;
+    width: 80%;
+    margin: 50px auto;
+    align-items: flex-start; /* Выравнивание по верхнему краю */
+  }
+  
+  .left-side {
+    width: 30%;
+    padding-right: 20px;
+    margin: auto 0;
+  }
+  
+  .right-side {
+    width: 70%;
+  }
+  
+  .cta-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(90deg, #008080 0%, #3CB371 100%);
+    color: white;
+    text-decoration: none;
+    padding: 15px 20px;
+    border-radius: 5px;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+    width: fit-content; /* Чтобы кнопка не растягивалась на всю ширину */
+  }
+  
+  .cta-button svg {
+    margin-left: 10px; /* Отступ для стрелки */
+  }
+  
+  .cta-button:hover {
+    background: linear-gradient(90deg, #3CB371 0%, #008080 100%);
+  }
+  
+  .video-container {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .video-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 5px;
+  }
+  
+  .news-text {
+    font-size: 16px;
+    line-height: 1.4;
+    color: #333;
+  }
+  
+  .read-more {
+    display: inline-block;
+    color: #007bff; /* Синий цвет для ссылки */
+    text-decoration: none;
+    margin-top: 10px;
+    transition: color 0.3s ease;
+  }
+  
+  .read-more:hover {
+    color: #0056b3; /* Более темный синий при наведении */
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      width: 90%; /* Увеличиваем ширину контейнера на мобильных устройствах */
+      flex-direction: column-reverse;
+    }
+  
+    .left-side {
+      width: 100%; /* Кнопка занимает всю ширину */
+      padding-right: 0; /* Убираем отступ справа */
+      margin-top: 20px;
+      text-align: center; /* Центрируем кнопку */
+    }
+  
+    .right-side {
+      width: 100%; /* Контент занимает всю ширину */
+    }
+  
+    .cta-button {
+      margin: 0 auto; /* Центрируем кнопку горизонтально */
+    }
+  }

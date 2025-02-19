@@ -1,119 +1,97 @@
-/* Общие стили */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-}
-
-.testimonials {
-  background: linear-gradient(to right, #00bcd4, #673ab7);
-  padding: 50px 0;
-  color: white;
-  text-align: center;
-  overflow: hidden;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-h2 {
-  font-size: 2.5rem;
-  margin-bottom: 30px;
-}
-
-/* Стили карусели */
-.testimonials-carousel {
-  display: flex;
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  max-width: 1200px; /* Ограничение ширины карусели */
-  margin: 0 auto;
-  padding: 0 20px; /* Добавляем отступы по бокам */
-  justify-content: center; /*  Центрируем карточки */
-  align-items: center;
-
-}
-
-.testimonials-card-container {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-  padding-left: 0px; /* Убираем отступ */
-}
-
-.testimonial-card {
-  width: 300px;
-  flex: 0 0 auto; /* Запрещаем изменение размеров */
-  margin-right: 20px; /* Отступ между карточками */
-  background-color: white;
-  color: black;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-  text-align: center; /*  Добавляем выравнивание по центру */
-}
-
-.testimonial-card:hover {
-  transform: translateY(-5px);
-}
-
-.testimonial-image {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 15px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.testimonial-text {
-  font-size: 1rem;
-  line-height: 1.5;
-  margin-bottom: 15px;
-  text-align: center; /* Выравниваем текст по центру */
-}
-
-.testimonial-name {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.testimonial-rating {
-  color: #ffc107;
-  font-size: 1.2rem;
-  display: flex;
-  justify-content: center; /* Центрируем звезды */
-}
-
-@media (max-width: 768px) {
-  .testimonials-carousel {
-      flex-direction: column;
-      align-items: center;
-      padding: 0;
+.carousel {
+    position: relative;
+    width: 100%;
+    margin: auto;
+    overflow: hidden;
+    background-color: transparent;
   }
-
-  .testimonials-card-container {
-      flex-direction: column;
-      align-items: center;
-       padding-left: 0px; /* Убираем отступ */
+  
+  .carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease;
+    flex-wrap: nowrap;
   }
-
-  .testimonial-card {
-      width: 80%; /* Занимает почти всю ширину экрана */
-      margin-bottom: 20px;
-      margin-right: 0;
+  
+  .carousel-slide {
+    flex: 0 0 calc(33.33% - 20px);
+    box-sizing: border-box;
+    height: 226px;
+    padding: 20px;
+    text-align: center;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
   }
-  .testimonial-card:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)) {
+  
+  .review {
+    font-size: 1em;
+    margin-bottom: 10px;
+  }
+  
+  .name {
+    font-size: 1em;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .rating {
+    font-size: 1.5em;
+    color: gold;
+    margin-bottom: 10px;
+  }
+  
+  .avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  
+  .carousel-control-prev,
+  .carousel-control-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
     display: none;
-     }
-     .testimonials-card-container {
-       transform: translateY(0); /*  Устанавливаем начальное значение transform */
-}
+  }
+  
+  .carousel:hover .carousel-control-prev,
+  .carousel:hover .carousel-control-next {
+    display: block;
+  }
+  
+  .star {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background: gold;
+    clip-path: polygon(
+      50% 0%, 63% 38%, 100% 38%, 69% 59%, 
+      82% 100%, 50% 75%, 18% 100%, 31% 59%, 
+      0% 38%, 37% 38%
+    );
+  }
+  
+  @media (max-width: 768px) {
 
-}
+    .carousel-inner {
+      flex-direction: column;
+      max-height: 738px;
+    }
+  
+    .carousel-slide {
+      flex: 0 0 100%;
+      width: 90%;
+      margin: 10px auto;
+      max-height: 250px;
+    }
+  }
+  
