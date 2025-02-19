@@ -1,3 +1,7 @@
+/**
+ * @class App
+ * @description Основной класс приложения, управляющий функциональностью бургер-меню и прокруткой
+ */
 class App {
   #apiUrl = 'https://idevlogic.ru/hackathon/test.php';
 
@@ -127,6 +131,14 @@ class App {
   }
 
   #delay = (ms = 1000) => new Promise(resolve => setTimeout(resolve, ms));
+  /**
+   * @private
+   * @method useFetch
+   * @description использует fetch для отправки данных на сервер
+   * @param {Array} fields - массив полей для отправки
+   * @returns {Promise}
+   * @throws {Error} Если элемент не существует
+   */  
   #useFetch = (fields = []) => {
     return new Promise(async resolve => {
       try {
@@ -164,6 +176,16 @@ class App {
     })
   }
 
+  /**
+   * @private
+   * @method safeSetStyle
+   * @description Безопасно устанавливает CSS-свойство для элемента
+   * @param {HTMLElement} element - HTML элемент
+   * @param {string} property - CSS свойство
+   * @param {string} value - Значение CSS свойства
+   * @returns {void}
+   * @throws {Error} Если элемент не существует
+   */
   #safeSetStyle = (element, property, value, important = null) => {
     if (!element || !property || typeof value !== 'string') return;
 
@@ -177,6 +199,14 @@ class App {
       }
     }
   };
+  /**
+   * @private
+   * @method animateStats
+   * @description Анимирует счетчик
+   * @param {HTMLElement} element - HTML элемент
+   * @param {number} duration - Длительность анимации
+   * @returns {void}
+   */
   #animateStats = (element, duration) => {
     const targetValue = parseInt(element.getAttribute('data-count'), 10);
     const startValue = 0;
@@ -196,6 +226,12 @@ class App {
       element.textContent = Math.floor(currentValue);
     }, 10);
   };
+  /**
+   * @private
+   * @method observeStatsElements
+   * @description Наблюдает за элементами счетчиков
+   * @returns {void}
+   */
   #observeStatsElements = () => {
     const observerOptions = {
       root: this.#animateStataParams.root,
@@ -246,6 +282,12 @@ class App {
       observer.observe(section);
     });
   }
+  /**
+   * @private
+   * @method getScrollbarWidth
+   * @description Вычисляет ширину полосы прокрутки
+   * @returns {string} Ширина полосы прокрутки в пикселях
+   */
   #getScrollbarWidth = () => {
     const outer = document.createElement('div')
     this.#safeSetStyle(outer, 'visibility', 'hidden')
@@ -269,6 +311,14 @@ class App {
 
     return scrollbarWidth
   }
+  /**
+   * @private
+   * @method setOverflow
+   * @description Управляет overflow и padding для body при открытии/закрытии меню
+   * @param {string} overflow - Значение для свойства overflow
+   * @param {string} [scrollbarWidth='0px'] - Ширина полосы прокрутки
+   * @returns {void}
+   */
   #setOverflow = (status = true) => {
     const scrollbarWidth = status
       ? `${this.#getScrollbarWidth()}px`
@@ -288,7 +338,14 @@ class App {
     this.#safeSetStyle(html, 'overflow', overflow)
     // this.#safeSetStyle(html, 'paddingRight', scrollbarWidth)
   }
-
+  /**
+   * @private
+   * @method fetchAndCache
+   * @description Кэширует изображения
+   * @param {string} mediaFileUrl - URL изображения
+   * @param {Cache} cache - Кэш
+   * @returns {Promise}
+   */
   #fetchAndCache(mediaFileUrl, cache) {
     return cache.match(mediaFileUrl)
       .then(cacheResponse => {
@@ -302,7 +359,12 @@ class App {
           })
       })
   }
-
+  /**
+   * @private
+   * @method cachedImg
+   * @description Кэширует изображения
+   * @returns {Promise}
+   */
   #cachedImg = async () => {
     if (location.origin.startsWith('file://') || !('caches' in window)) return;
 
@@ -318,6 +380,12 @@ class App {
     }
   };
 
+  /**
+   * @private
+   * @method modalInit
+   * @description Инициализирует модальные окна
+   * @returns {void}
+   */
   #modalInit = () => {
     let clicked = 0
 
@@ -349,7 +417,7 @@ class App {
         }
       }
     }
-
+    
     this.#modalOpenLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
@@ -392,6 +460,12 @@ class App {
       }
     })
   }
+  /**
+   * @private
+   * @method scrollToInit
+   * @description Инициализирует плавную прокрутку к элементам по клику
+   * @returns {void}
+   */
   #scrollToInit = () => {
     const scrollTo = (id) => {
       if (id === 'offer') {
@@ -420,6 +494,12 @@ class App {
       })
     })
   }
+  /**
+   * @private
+   * @method burgerInit
+   * @description Инициализирует функциональность бургер-меню
+   * @returns {void}
+   */
   #burgerInit = () => {
     const menuToggle = () => {
       this.#burgerOpen = !this.#burgerOpen
@@ -452,6 +532,12 @@ class App {
       }
     })
   }
+  /**
+   * @private
+   * @method formsInit
+   * @description Инициализирует формы
+   * @returns {void}
+   */
   #formsInit = () => {
     const getFormById = (id) => {
       return Array.from(this.#forms).find(form => form.id === id)
@@ -474,6 +560,13 @@ class App {
         container.classList.remove('hide')
       }
     }
+    /**
+     * @private
+     * @method submitForm
+     * @description Отправляет форму
+     * @param {string} id - ID формы
+     * @returns {Promise}
+     */
     const submitForm = async (id) => {
       const form = getFormById(id)
       form.classList.add('fetching')
@@ -522,6 +615,12 @@ class App {
       submitForm(formId)
     })
   }
+  /**
+   * @private
+   * @method formsReset
+   * @description Сбрасывает формы
+   * @returns {void}
+   */
   #formsReset = () => {
     if (this.#forms) {
       this.#forms.forEach((form) => {
@@ -541,6 +640,12 @@ class App {
       })
     }
   }
+  /**
+   * @private
+   * @method formsResetAlerts
+   * @description Сбрасывает ошибки форм
+   * @returns {void}
+   */
   #formsResetAlerts = () => {
     if (this.#forms) {
       this.#forms.forEach((form) => {
@@ -553,5 +658,11 @@ class App {
     }
   }
 }
+
+/**
+ * @constant {App} app
+ * @description Экземпляр основного класса приложения
+ */
+const app = new App()
 
 document.addEventListener('DOMContentLoaded', () => new App());
