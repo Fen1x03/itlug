@@ -3,7 +3,7 @@
     font-family: sans-serif;
   }
   
-  .container {
+  .announce .container {
     max-width: 1200px;
     margin: 0 auto;
   }
@@ -83,4 +83,10 @@
     vertical-align: middle;
     margin-left: 5px;
     content:url('../img/icons/arrow.svg');
+  }
+
+  @media (max-width: 768px) {
+    .imgAnnounce{
+      flex-direction: column;
+    }
   }
