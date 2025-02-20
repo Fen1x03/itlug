@@ -8,6 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     lectorCards.forEach((card, index) => {
-        showCard(card, index * 200); // Задержка 200ms для каждой карточки
+        showCard(card, index * 200);
     });
 });

@@ -21,14 +21,14 @@
     border-radius: 20px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
     display: flex;
-    align-items: center; /* Вертикальное выравнивание по центру */
+    align-items: center;
     margin-bottom: 30px;
     padding: 30px;
     transition: transform 0.2s ease-in-out;
     min-height: 250px;
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
 .lector-card.show {
@@ -52,8 +52,8 @@
 
 .star-ico{
     content: url('../img/speakers/star.png');
-    width: 20px; /* Задайте ширину */
-    height: 20px; /* Задайте высоту */
+    width: 20px;
+    height: 20px;
     margin-right: 10px;
     opacity: 0.6;
 }
@@ -73,14 +73,12 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    /* Вертикальное выравнивание сверху */
     color: #495057;
     width: -webkit-fill-available;
 }
 
 .lector-info h2 {
     margin: 0 0 5px;
-    /* Чуть меньше отступ */
     font-size: 1rem;
     font-weight: bold;
     text-decoration: underline;
@@ -97,7 +95,7 @@
     font-style: italic;
     color: #868e96;
     font-size: 0.9rem;
-    margin-bottom: 10px; /* Добавляем отступ снизу */
+    margin-bottom: 10px;
 }
 
 .lector-description {
@@ -108,7 +106,6 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    /* margin-top: auto;  Убираем auto, так как не нужно выравнивать по низу */
 }
 
 .lector-skills li {

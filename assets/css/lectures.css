@@ -1,0 +1,79 @@
+
+  
+  .lectures  h1 {
+    margin: 50px 0;
+    text-align: center;
+    color: var(--color-3);
+  }
+  
+  .lecture-item {
+    margin-bottom: 20px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+  }
+  
+  .lecture-item summary {
+    padding: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    list-style: none; /* Убираем стандартные маркеры для summary */
+    position: relative; /* Для позиционирования стрелки */
+  }
+  
+  /* Убираем стандартную стрелку details */
+  .lecture-item summary::-webkit-details-marker {
+    display: none;
+  }
+  
+  .lecture-item summary::after {
+    content: '▼'; /* Стрелка вниз (Unicode) */
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #888;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Стрелка вверх, когда details открыт */
+  .lecture-item[open] summary::after {
+    content: '▲'; /* Стрелка вверх (Unicode) */
+    transform: translateY(-50%) rotate(180deg);
+  }
+  
+  .lecture-content {
+    padding: 15px;
+    border-top: 1px solid #eee;
+    display: none; /* Скрываем контент по умолчанию */
+  }
+  
+  .lecture-item[open] .lecture-content {
+    display: block; /* Показываем контент, когда details открыт */
+  }
+  
+  .lecture-video {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-top: 15px;
+  }
+  
+  /* Адаптивность */
+  @media (max-width: 768px) {
+     .lectures .container {
+      width: 95%;
+    }
+  
+    .lecture-item summary {
+      font-size: 16px;
+    }
+  
+    .lecture-content {
+      padding: 10px;
+    }
+  }
