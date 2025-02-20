@@ -608,7 +608,7 @@ class App {
         container.classList.remove('hide')
       }
     }
-
+    //FIX - добавлена функция для проверки ошибок перед отправкой на бэкенд
     const getFormErrors = (fields = []) => {
       const formName = fields[0]?.value
       const fieldsMap = fields.reduce((acc,el,i)=>{
@@ -650,7 +650,7 @@ class App {
       for (const name in state) {
         fields.push({name, value: state[name].value})
       }
-      
+      //FIX - вызов функции, если объект с ошибками не получен отправка запроса на бэкенд
       const {status, data, alerts} = getFormErrors(fields) ?? await this.#useFetch(fields)
 
       const alertContainerClass = status ? '.form-fieldset-success' : '.form-fieldset-error'
