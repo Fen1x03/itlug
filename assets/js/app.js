@@ -1,8 +1,9 @@
-/**
- * @class App
- * @description Основной класс приложения, управляющий функциональностью бургер-меню и прокруткой
- */
+  /**    
+   * @class App
+   * @description Класс для управления функциональностью веб-приложения
+   */
 class App {
+
   #apiUrl = 'https://idevlogic.ru/hackathon/test.php';
 
   #statsEl = null
@@ -36,6 +37,7 @@ class App {
   #header = null
 
   #forms = null
+
   #formState = {
     'login-form': {
       login: {
@@ -79,11 +81,17 @@ class App {
     passwordConfirmError: 'Пароли не совпадают.',
     checkFormField: 'Форма содержит ошибки:'
   }
-
+  
   constructor() {
     this.init()
   }
 
+  /**
+   * @private
+   * @method init
+   * @description Инициализирует приложение
+   * @returns {void}
+   */
   init() {
     this.#setOverflow(true)
 
@@ -131,6 +139,7 @@ class App {
   }
 
   #delay = (ms = 1000) => new Promise(resolve => setTimeout(resolve, ms));
+  
   /**
    * @private
    * @method useFetch
@@ -199,6 +208,7 @@ class App {
       }
     }
   };
+
   /**
    * @private
    * @method animateStats
@@ -226,6 +236,7 @@ class App {
       element.textContent = Math.floor(currentValue);
     }, 10);
   };
+
   /**
    * @private
    * @method observeStatsElements
@@ -255,6 +266,13 @@ class App {
       observer.observe(element);
     });
   };
+
+  /**
+   * @private
+   * @method observeSectionsElements
+   * @description Наблюдает за элементами секций
+   * @returns {void}
+   */
   #observeSectionsElements = () => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -311,6 +329,7 @@ class App {
 
     return scrollbarWidth
   }
+
   /**
    * @private
    * @method setOverflow
@@ -338,6 +357,7 @@ class App {
     this.#safeSetStyle(html, 'overflow', overflow)
     // this.#safeSetStyle(html, 'paddingRight', scrollbarWidth)
   }
+
   /**
    * @private
    * @method fetchAndCache
@@ -346,7 +366,8 @@ class App {
    * @param {Cache} cache - Кэш
    * @returns {Promise}
    */
-  #fetchAndCache(mediaFileUrl, cache) {
+  //FIX - единый код стайл через стрелочную функцию
+  #fetchAndCache = (mediaFileUrl, cache) => {
     return cache.match(mediaFileUrl)
       .then(cacheResponse => {
         if (cacheResponse) {
@@ -359,6 +380,7 @@ class App {
           })
       })
   }
+
   /**
    * @private
    * @method cachedImg
@@ -460,6 +482,7 @@ class App {
       }
     })
   }
+
   /**
    * @private
    * @method scrollToInit
@@ -494,6 +517,7 @@ class App {
       })
     })
   }
+
   /**
    * @private
    * @method burgerInit
@@ -532,6 +556,7 @@ class App {
       }
     })
   }
+
   /**
    * @private
    * @method formsInit
@@ -615,6 +640,7 @@ class App {
       submitForm(formId)
     })
   }
+
   /**
    * @private
    * @method formsReset
@@ -640,6 +666,7 @@ class App {
       })
     }
   }
+
   /**
    * @private
    * @method formsResetAlerts
