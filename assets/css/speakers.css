@@ -9,12 +9,11 @@
     padding: 0 20px;
 }
 
-h1 {
+.lectors h1 {
     text-align: center;
-    margin-bottom: 40px;
-    color: #343a40;
+    margin: 80px 0 40px 0;
+    color: var(--color-3);
     font-size: 2.5rem;
-    font-weight: 700;
 }
 
 .lector-card {
@@ -27,6 +26,14 @@ h1 {
     padding: 30px;
     transition: transform 0.2s ease-in-out;
     min-height: 250px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.lector-card.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .lector-card:hover {
@@ -34,7 +41,7 @@ h1 {
 }
 
 .lector-photo {
-    width: 180px;
+    width: 240px;
     height: 180px;
     border-radius: 50%;
     overflow: hidden;
@@ -74,8 +81,9 @@ h1 {
 .lector-info h2 {
     margin: 0 0 5px;
     /* Чуть меньше отступ */
-    font-size: 1.6rem;
-    font-weight: 700;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 .lector-info p {
@@ -120,3 +128,21 @@ h1 {
 .lectors .lector-card:nth-child(odd) {
     flex-direction: row-reverse;
 }
+@media (max-width: 768px) {
+    .lector-card{
+        flex-direction: column !important;
+    }
+    .lector-photo{
+        width: 180px;
+        margin-bottom: 20px;
+    }
+
+    .lector-info h2, .lector-info p{
+        margin: 0 auto;
+    }
+    
+    .lector-description{
+        text-align: justify;
+    }
+}
+  
