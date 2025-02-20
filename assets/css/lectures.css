@@ -3,6 +3,7 @@
   .lectures  h1 {
     margin: 50px 0;
     text-align: center;
+    font-size: 3em;
     color: var(--color-3);
   }
   
@@ -11,59 +12,68 @@
     border: 1px solid #eee;
     border-radius: 5px;
     overflow: hidden;
-    background-color: #f5f5f5;
+    background-color: #dbdbdb;
   }
   
   .lecture-item summary {
     padding: 15px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 1.2em;
     font-weight: bold;
     color: #333;
-    list-style: none; /* Убираем стандартные маркеры для summary */
-    position: relative; /* Для позиционирования стрелки */
+    list-style: none;
+    position: relative;
+    text-decoration: underline;
   }
   
-  /* Убираем стандартную стрелку details */
   .lecture-item summary::-webkit-details-marker {
     display: none;
   }
+
+  .lecture-content p {
+    margin: 0;
+  }
   
   .lecture-item summary::after {
-    content: '▼'; /* Стрелка вниз (Unicode) */
+    content: url('../img/icons/arrow.svg');
+    filter: invert(1);
     position: absolute;
     top: 50%;
-    right: 15px;
-    transform: translateY(-50%);
+    right: 5px;
+    transform: translateY(-50%) rotate(90deg) scale(0.5);
     font-size: 20px;
     color: #888;
     transition: transform 0.3s ease;
   }
-  
-  /* Стрелка вверх, когда details открыт */
+
   .lecture-item[open] summary::after {
-    content: '▲'; /* Стрелка вверх (Unicode) */
-    transform: translateY(-50%) rotate(180deg);
+    content: url('../img/icons/arrow.svg');
+    filter: invert(1);
+    transform: translateY(-50%) rotate(270deg) scale(0.5);
   }
   
   .lecture-content {
     padding: 15px;
-    border-top: 1px solid #eee;
-    display: none; /* Скрываем контент по умолчанию */
+    display: none;
   }
   
   .lecture-item[open] .lecture-content {
-    display: block; /* Показываем контент, когда details открыт */
+    display: block;
   }
   
-  .lecture-video {
+  .image-wrapper{
     width: 100%;
-    height: auto;
-    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+
+  }
+
+  .lecture-video {
+    width: 90%;
+    border: 2px solid black;
     margin-top: 15px;
   }
   
-  /* Адаптивность */
   @media (max-width: 768px) {
      .lectures .container {
       width: 95%;
