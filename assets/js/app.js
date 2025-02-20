@@ -342,8 +342,9 @@ class App {
     document.body.appendChild(outer)
 
     const inner = document.createElement('div')
-    this.#safeSetStyle(outer, 'width', '100%')
-    this.#safeSetStyle(outer, 'height', '100%')
+    //FIX - присвоение внутреннему элементу стилей
+    this.#safeSetStyle(inner, 'width', '100%')
+    this.#safeSetStyle(inner, 'height', '100%')
     outer.appendChild(inner)
 
     const scrollbarWidth = outer.offsetWidth - inner.offsetWidth
