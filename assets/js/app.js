@@ -54,6 +54,11 @@ class App {
         value: '',
         errors: []
       },
+      //FIX - добавление логина 
+      login: {
+        value: '',
+        errors: []
+      },      
       email: {
         value: '',
         errors: []
@@ -81,7 +86,25 @@ class App {
     passwordConfirmError: 'Пароли не совпадают.',
     checkFormField: 'Форма содержит ошибки:'
   }
-  
+
+  //FIX - добавление строкового валидатора для форм
+  #stringValidators = {
+    'login-form' : [ 
+      {name : 'login', rx : /^[a-zA-Z\_\d]{5,15}$/, alert:this.#fieldErrors.loginIncorrect},          
+      {name: 'password_login', rx: /^.{5,10}$/, alert:this.#fieldErrors.passwordLengthError},
+
+    ],
+    'register-form' : [
+      {name : 'name', rx : /^[a-zA-Zа-яА-ЯёЁ\ \-]{3,50}$/, alert:this.#fieldErrors.nameIncorrect},
+      {name : 'login', rx : /^[a-zA-Z\_\d]{5,15}$/, alert:this.#fieldErrors.loginIncorrect},                    
+      {name : 'email', rx : /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, alert:this.#fieldErrors.emailIncorrect},
+      {name : 'password', rx : /^.{5,10}$/, alert:this.#fieldErrors.passwordLengthError},
+      {name : 'password', rx : /[A-Z]/, alert:this.#fieldErrors.passwordUpperCaseError},
+      {name : 'password', rx : /[a-z]/, alert:this.#fieldErrors.passwordLowerCaseError},
+      {name : 'password', rx : /\d/, alert:this.#fieldErrors.passwordDigitError},
+      {name : 'password', rx : /[\!\@\#\$\%\^\&\*]/, alert:this.#fieldErrors.passwordSpecCharError},          
+    ]
+  }
   constructor() {
     this.init()
   }
@@ -585,6 +608,30 @@ class App {
         container.classList.remove('hide')
       }
     }
+
+    const getFormErrors = (fields = []) => {
+      const formName = fields[0]?.value
+      const fieldsMap = fields.reduce((acc,el,i)=>{
+        if (i>0) {
+          acc[el.name] = el.value
+        }
+        return acc
+      },{})
+
+      const alerts = []
+      this.#stringValidators[formName].forEach(validator=>{
+        if (!fieldsMap[validator.name].match(validator.rx))
+          alerts.push(validator.alert)  
+      })
+
+      if (formName === 'register-form' && fieldsMap.password !== fieldsMap.password2)
+          alerts.push(this.#fieldErrors.passwordConfirmError)
+      if (alerts.length > 0)
+        return {status:false, data:[], alerts}
+      
+      return null
+    }
+    
     /**
      * @private
      * @method submitForm
@@ -603,8 +650,8 @@ class App {
       for (const name in state) {
         fields.push({name, value: state[name].value})
       }
-
-      const {status, data, alerts} = await this.#useFetch(fields)
+      
+      const {status, data, alerts} = getFormErrors(fields) ?? await this.#useFetch(fields)
 
       const alertContainerClass = status ? '.form-fieldset-success' : '.form-fieldset-error'
       const alertContainer = form.querySelector(alertContainerClass)
@@ -685,11 +732,5 @@ class App {
     }
   }
 }
-
-/**
- * @constant {App} app
- * @description Экземпляр основного класса приложения
- */
-const app = new App()
 
 document.addEventListener('DOMContentLoaded', () => new App());
