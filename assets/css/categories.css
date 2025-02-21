@@ -1,0 +1,79 @@
+.design-section {
+    padding: 50px 0;
+}
+
+.design-section .container {
+    padding: 0 20px;
+}
+
+.design-section h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 3em;
+    color: var(--color-3);
+}
+
+.content-block {
+    display: flex;
+    background-color: #fff;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    flex-direction: row;
+}
+
+.content-block:nth-child(odd){
+    background: var(--main-gradient);
+    flex-direction: row-reverse;
+}
+
+.text-content {
+    padding: 30px;
+    flex: 1;
+}
+
+.image-content {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-content img {
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.image-content img:hover {
+    transform: scale(1.1);
+}
+
+.content-block h2 {
+    font-size: 2em;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+.content-block h3 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.content-block p {
+    font-size: 1.1em;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.gradient-bg {
+    background: linear-gradient(to right, #3498db, #9b59b6);
+    color: #fff;
+}
+
+.gradient-bg .text-content h2,
+.gradient-bg .text-content p {
+    color: #fff;
+}

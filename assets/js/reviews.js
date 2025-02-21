@@ -17,7 +17,7 @@ class Carousel {
     }
   
     updateOrientation() {
-      const isMobile = window.innerWidth <= 768;
+      const isMobile = window.innerWidth <= 420;
       this.slidesPerView = isMobile ? 3 : 3;
       this.carouselInner.style.flexDirection = isMobile ? 'column' : 'row';
       this.showSlide(this.currentSlide);
@@ -34,9 +34,13 @@ class Carousel {
   
         slide.innerHTML = `
           <img class="avatar" src="${review.avatar}" alt="Avatar">
-          <div class="review">${review.text}</div>
-          <div class="name">${review.name}</div>
-          <div class="rating">${stars}</div>
+          <div class="review-wrap">
+            <div class="review">${review.text}</div>
+          </div>
+          <div class="review-footer">
+            <div class="name">${review.name}</div>
+            <div class="rating">${stars}</div>
+          </div>
         `;
   
         this.carouselInner.appendChild(slide);
@@ -52,7 +56,7 @@ class Carousel {
   
     showSlide(index) {
       const totalSlides = this.carouselInner.children.length;
-      const isMobile = window.innerWidth <= 768;
+      const isMobile = window.innerWidth <= 420;
   
       this.currentSlide = (index + totalSlides) % totalSlides;
       const offset = this.currentSlide * (isMobile ? -246 : -100 / 3);
