@@ -69,6 +69,7 @@
   }
 
   .lecture-video {
+    height: 480px;
     width: 90%;
     border: 2px solid black;
     margin-top: 15px;
