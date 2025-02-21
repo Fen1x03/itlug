@@ -37,8 +37,9 @@ class App {
   #header = null
 
   #forms = null
-
-  #formState = {
+  #clearTimeoutIds  = []
+  #clearTimeouts = () => this.#clearTimeoutIds.forEach(_=>clearTimeout(this.#clearTimeoutIds.pop()))
+  #formState = {    
     'login-form': {
       login: {
         value: '',
@@ -117,8 +118,8 @@ class App {
    */
   init() {
     this.#setOverflow(true)
-
-    this.#cachedImg()
+    //FIX - нет необходимости. требует добавления сервис воркера 
+    //this.#cachedImg()
 
     this.#header = document.querySelector(".header")
 
@@ -336,7 +337,8 @@ class App {
     this.#safeSetStyle(outer, 'msOverflowStyle', 'scrollbar')
     this.#safeSetStyle(outer, 'width', '100px')
     this.#safeSetStyle(outer, 'height', '100px')
-    this.#safeSetStyle(outer, 'position', 'hidden')
+    //FIX аттрибут postion не имеет значения hidden, но для корректной работы top -9999px необходим postion: absolute
+    this.#safeSetStyle(outer, 'position', 'absolute')
     this.#safeSetStyle(outer, 'top', '-9999px')
 
     document.body.appendChild(outer)
@@ -369,17 +371,19 @@ class App {
     const overflow = status
       ? 'hidden'
       : ''
-
-    // this.#safeSetStyle(document.body, 'overflow', overflow)
-    // this.#safeSetStyle(document.body, 'paddingRight', scrollbarWidth)
-    //
-    // this.#safeSetStyle(document.head, 'overflow', overflow)
-    // this.#safeSetStyle(document.head, 'paddingRight', scrollbarWidth)
-
+    
     const html = document.querySelector('html')
-
+    
+    const header = document.querySelector('.header') // получаем header
+    
     this.#safeSetStyle(html, 'overflow', overflow)
-    // this.#safeSetStyle(html, 'paddingRight', scrollbarWidth)
+    //FIX - margin-right делает отсутп для основного контента, убирает "тряску" при открытии модалки
+    this.#safeSetStyle(html, 'margin-right', scrollbarWidth)
+    
+    //FIX - Добавляем тот же padding к header
+    if (header) {
+        this.#safeSetStyle(header, 'padding-right', scrollbarWidth)
+    }
   }
 
   /**
@@ -409,7 +413,7 @@ class App {
    * @private
    * @method cachedImg
    * @description Кэширует изображения
-   * @returns {Promise}
+   * @returns {void}
    */
   #cachedImg = async () => {
     if (location.origin.startsWith('file://') || !('caches' in window)) return;
@@ -598,10 +602,12 @@ class App {
       }
 
       this.#formsResetAlerts()
-      container.innerHTML = ''
+      //FIX - textContent безопаснее innerHTML
+      container.textContent = ''
       alerts.forEach(alert => {
         const wrapper = document.createElement('p')
-        wrapper.innerHTML = alert
+        //FIX - textContent безопаснее innerHTML, особенно если есть вероятность alert получить с бэка
+        wrapper.textContent = alert
         container.appendChild(wrapper)
       })
 
@@ -660,34 +666,49 @@ class App {
       renderAlert(alertContainer, status ? alerts : [this.#fieldErrors.checkFormField, ...alerts])
 
       if (status) {
-        setTimeout(() => {
+        //FIX - добавлено для очистки интервалов при редактировании или сабмите форм
+        this.#clearTimeoutIds.push(setTimeout(() => {
           this.#formsReset()
-        }, 10000)
+        }, 10000))
       }
 
       form.classList.remove('fetching')
     }
+    
+    //FIX - добавление листенеров только на формы.
+    if (this.#forms) {
+      this.#forms.forEach(form=> { 
 
-    document.addEventListener('change', e => {
-      const formId = e?.target?.closest('form')?.id
-      if (!formId) {
-        return
-      }
+        form.addEventListener('change', e => {
+          const formId = e?.target?.closest('form')?.id
+          if (!formId) {
+            return
+          }
+          this.#clearTimeouts()
+          const state = this.#formState[formId]
+          const {name, value: rawValue} = e.target
+          state[name].value = rawValue.trim()        
+        })
 
-      const state = this.#formState[formId]
-      const {name, value: rawValue} = e.target
-      state[name].value = rawValue.trim()
-    })
-    document.addEventListener('submit', e => {
-      e.preventDefault()
-      const formId = e?.target?.closest('form')?.id
-      if (!formId) {
-        return
-      }
-
-      submitForm(formId)
-    })
+        form.addEventListener('submit', e => {
+          e.preventDefault()
+          this.#clearTimeouts()
+          const formId = e?.target?.closest('form')?.id
+          if (!formId) {
+            return
+          }
+          submitForm(formId)
+        })  
+      })    
   }
+  }
+  //FIX - добавлена функция, с целью переиспользования
+  #resetAlertsByForm = (form) => form.querySelectorAll('.form-fieldset-alert')
+    .forEach(element => {
+      //FIX - textContent безопаснее innerHTML
+      element.textContent = ''
+      element.classList.add('hide')
+    })
 
   /**
    * @private
@@ -699,11 +720,7 @@ class App {
     if (this.#forms) {
       this.#forms.forEach((form) => {
         form.reset()
-        form.querySelectorAll('.form-fieldset-alert')
-          .forEach(element => {
-            element.innerHTML = ''
-            element.classList.add('hide')
-          })
+        this.#resetAlertsByForm(form)
         const state = this.#formState[form.id]
         for (const name in state) {
           state[name] = {
@@ -723,15 +740,10 @@ class App {
    */
   #formsResetAlerts = () => {
     if (this.#forms) {
-      this.#forms.forEach((form) => {
-        form.querySelectorAll('.form-fieldset-alert')
-          .forEach(element => {
-            element.innerHTML = ''
-            element.classList.add('hide')
-          })
-      })
+      this.#forms.forEach((form) => this.#resetAlertsByForm(form))
     }
   }
 }
+
 
 document.addEventListener('DOMContentLoaded', () => new App());
