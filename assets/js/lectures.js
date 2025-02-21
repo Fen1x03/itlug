@@ -11,7 +11,6 @@ document.querySelectorAll('.lecture-item').forEach(item => {
   }, 100);
   
   
-  // Добавляем слушатель событий на клик по summary, чтобы корректно работала анимация
   document.querySelectorAll('summary').forEach(summary => {
     summary.addEventListener('click', (event) => {
       const details = summary.parentElement;
@@ -20,13 +19,13 @@ document.querySelectorAll('.lecture-item').forEach(item => {
         details.classList.add('closing');
         setTimeout(() => {
           details.classList.remove('closing');
-        }, 300); // Время анимации (подбирайте под свою анимацию)
+        }, 300);
       } else {
         // Открытие
         details.classList.add('opening');
         setTimeout(() => {
           details.classList.remove('opening');
-        }, 300); // Время анимации (подбирайте под свою анимацию)
+        }, 300);
       }
     });
   });
