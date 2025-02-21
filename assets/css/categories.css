@@ -1,79 +1,102 @@
-.design-section {
-    padding: 50px 0;
-}
+  .cont {
+    width: 100%;
+    margin: 0;
+    background-color: white;
+    box-shadow: none;
+  }
 
-.design-section .container {
-    padding: 0 20px;
-}
-
-.design-section h1 {
+  .main-title {
     text-align: center;
+    color: #800080;
     margin-bottom: 40px;
-    font-size: 3em;
-    color: var(--color-3);
-}
-
-.content-block {
+    font-size: 2.5em;
+    font-weight: bold;
+  }
+  
+  .section {
+    width: 100%;
+    margin-bottom: 40px;
+    padding: 20px;
+    box-sizing: border-box;
     display: flex;
-    background-color: #fff;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    flex-direction: row;
-}
-
-.content-block:nth-child(odd){
-    background: var(--main-gradient);
-    flex-direction: row-reverse;
-}
-
-.text-content {
-    padding: 30px;
-    flex: 1;
-}
-
-.image-content {
-    flex: 1;
-    overflow: hidden;
+    align-items: flex-start;
+  }
+  
+  /* Стили для section 2 */
+  .section.section-2 {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(to bottom, #8e44ad, #6a5acd);
+    color: white;
+  }
+  
+  .section-2 .content-wrapper {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+  }
+  
+  .section-2 .section-title {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .section-1,
+  .section-3 {
+    align-items: flex-start;
+  }
+  
+  .text-content {
+    width: 50%;
+    padding-right: 20px;
+    box-sizing: border-box;
+    text-align: left;
+    /* Новые стили для отступов и размера текста */
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .image-content {
+    width: 50%;
     display: flex;
     justify-content: center;
-    align-items: center;
-}
-
-.image-content img {
+  }
+  
+  .image-content img {
     width: 80%;
-    height: 80%;
+    height: auto;
+    border-radius: 8px;
     object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.image-content img:hover {
-    transform: scale(1.1);
-}
-
-.content-block h2 {
-    font-size: 2em;
-    margin-bottom: 15px;
-    color: #2c3e50;
-}
-
-.content-block h3 {
-    font-size: 1.5em;
-    margin-bottom: 15px;
-    color: #fff;
-}
-
-.content-block p {
-    font-size: 1.1em;
-    margin-bottom: 15px;
-    color: #555;
-}
-
-.gradient-bg {
-    background: linear-gradient(to right, #3498db, #9b59b6);
-    color: #fff;
-}
-
-.gradient-bg .text-content h2,
-.gradient-bg .text-content p {
-    color: #fff;
-}
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  h2 {
+    font-size: 1.6em; /* Увеличиваем размер заголовка */
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+  }
+  
+  p {
+    font-size: 1.2em; /* Увеличиваем размер абзаца */
+    line-height: 1.6;
+    color: #444;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+  }
+  
+  .section-2 h2 {
+    color: white;
+  }
+  
+  .section-2 p {
+    color: #eee;
+  }
