@@ -1,110 +1,102 @@
-  .design-container {
+  .cont {
     width: 100%;
-    padding: 70px 0;
-    margin: 0 auto;
+    margin: 0;
+    background-color: white;
+    box-shadow: none;
   }
 
-  .section-title{
-    padding-top: 50px;
-    font-size: 2em;
-  }
-  
-  section {
-    width: 100%;
-    display: flex;
-    padding: 20px;
-    flex-direction: row;
-  }  
-  
-  .section-2 {
-    width: 100%;
-    background: var(--main-gradient);
-    display: block;
-    color: white;
-    margin: 0 auto;
-  }
-  .section-2 h2{
-    margin: 30px auto;
-    width: 20%;
+  .main-title {
     text-align: center;
-    font-size: 1.5em;
-    font-weight: 0;
+    color: #800080;
+    margin-bottom: 40px;
+    font-size: 2.5em;
+    font-weight: bold;
   }
-  .section-2 .content{
+  
+  .section {
+    width: 100%;
+    margin-bottom: 40px;
+    padding: 20px;
+    box-sizing: border-box;
     display: flex;
+    align-items: flex-start;
+  }
+  
+  /* Стили для section 2 */
+  .section.section-2 {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(to bottom, #8e44ad, #6a5acd);
+    color: white;
+  }
+  
+  .section-2 .content-wrapper {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+  }
+  
+  .section-2 .section-title {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .section-1,
+  .section-3 {
+    align-items: flex-start;
   }
   
   .text-content {
     width: 50%;
     padding-right: 20px;
-    text-align: justify;
-  }
-  .text-content .descrip{
-    margin: auto;
-    width: 50%;
-  }
-
-.descrip p{
-    text-align: justify;
-}
-
-  .text-content h2{
-    text-align: center;
-    font-weight: bold;
-    font-size: 1em;
+    box-sizing: border-box;
+    text-align: left;
+    /* Новые стили для отступов и размера текста */
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   
   .image-content {
     width: 50%;
+    display: flex;
+    justify-content: center;
   }
   
   .image-content img {
-    width: 100%;
+    width: 80%;
     height: auto;
-    border-radius: 5px;
+    border-radius: 8px;
     object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   }
   
-  .text-content h2 {
-    margin-bottom: 15px;
+  h2 {
+    font-size: 1.6em; /* Увеличиваем размер заголовка */
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+  }
+  
+  p {
+    font-size: 1.2em; /* Увеличиваем размер абзаца */
+    line-height: 1.6;
+    color: #444;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
   }
   
   .section-2 h2 {
     color: white;
   }
   
-  .text-content p {
-    line-height: 1.5;
-  }
-  
   .section-2 p {
     color: #eee;
-  }
-  
-  @media (max-width: 768px) {
-    .design-container {
-      width: 95%;
-    }
-
-    .section-2{
-        display: flex;
-    }
-
-    .section-2 h2{
-        width: 75%;
-      }
-  
-    section {
-      flex-direction: column;
-    }
-  
-    .text-content {
-      width: 100%;
-      padding-right: 0;
-      margin-bottom: 20px;
-    }
-  
-    .image-content {
-      width: 100%;
-    }
   }
