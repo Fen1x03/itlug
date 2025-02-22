@@ -94,4 +94,8 @@
       padding: 5px 10px;
       margin-bottom: 20px;
     }
+
+    .masMedia-cont{
+      flex-direction: column-reverse;
+    }
   }
