@@ -1,4 +1,9 @@
+  /**    
+   * @class App
+   * @description Класс для управления функциональностью веб-приложения
+   */
 class App {
+
   #apiUrl = 'https://idevlogic.ru/hackathon/test.php';
 
   #statsEl = null
@@ -32,7 +37,9 @@ class App {
   #header = null
 
   #forms = null
-  #formState = {
+  #clearTimeoutIds  = []
+  #clearTimeouts = () => this.#clearTimeoutIds.forEach(_=>clearTimeout(this.#clearTimeoutIds.pop()))
+  #formState = {    
     'login-form': {
       login: {
         value: '',
@@ -48,6 +55,11 @@ class App {
         value: '',
         errors: []
       },
+      //FIX - добавление логина 
+      login: {
+        value: '',
+        errors: []
+      },      
       email: {
         value: '',
         errors: []
@@ -76,14 +88,38 @@ class App {
     checkFormField: 'Форма содержит ошибки:'
   }
 
+  //FIX - добавление строкового валидатора для форм
+  #stringValidators = {
+    'login-form' : [ 
+      {name : 'login', rx : /^[a-zA-Z\_\d]{5,15}$/, alert:this.#fieldErrors.loginIncorrect},          
+      {name: 'password_login', rx: /^.{5,10}$/, alert:this.#fieldErrors.passwordLengthError},
+
+    ],
+    'register-form' : [
+      {name : 'name', rx : /^[a-zA-Zа-яА-ЯёЁ\ \-]{3,50}$/, alert:this.#fieldErrors.nameIncorrect},
+      {name : 'login', rx : /^[a-zA-Z\_\d]{5,15}$/, alert:this.#fieldErrors.loginIncorrect},                    
+      {name : 'email', rx : /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, alert:this.#fieldErrors.emailIncorrect},
+      {name : 'password', rx : /^.{5,10}$/, alert:this.#fieldErrors.passwordLengthError},
+      {name : 'password', rx : /[A-Z]/, alert:this.#fieldErrors.passwordUpperCaseError},
+      {name : 'password', rx : /[a-z]/, alert:this.#fieldErrors.passwordLowerCaseError},
+      {name : 'password', rx : /\d/, alert:this.#fieldErrors.passwordDigitError},
+      {name : 'password', rx : /[\!\@\#\$\%\^\&\*]/, alert:this.#fieldErrors.passwordSpecCharError},          
+    ]
+  }
   constructor() {
     this.init()
   }
 
+  /**
+   * @private
+   * @method init
+   * @description Инициализирует приложение
+   * @returns {void}
+   */
   init() {
     this.#setOverflow(true)
-
-    this.#cachedImg()
+    //FIX - нет необходимости. требует добавления сервис воркера 
+    //this.#cachedImg()
 
     this.#header = document.querySelector(".header")
 
@@ -127,6 +163,15 @@ class App {
   }
 
   #delay = (ms = 1000) => new Promise(resolve => setTimeout(resolve, ms));
+  
+  /**
+   * @private
+   * @method useFetch
+   * @description использует fetch для отправки данных на сервер
+   * @param {Array} fields - массив полей для отправки
+   * @returns {Promise}
+   * @throws {Error} Если элемент не существует
+   */  
   #useFetch = (fields = []) => {
     return new Promise(async resolve => {
       try {
@@ -164,6 +209,16 @@ class App {
     })
   }
 
+  /**
+   * @private
+   * @method safeSetStyle
+   * @description Безопасно устанавливает CSS-свойство для элемента
+   * @param {HTMLElement} element - HTML элемент
+   * @param {string} property - CSS свойство
+   * @param {string} value - Значение CSS свойства
+   * @returns {void}
+   * @throws {Error} Если элемент не существует
+   */
   #safeSetStyle = (element, property, value, important = null) => {
     if (!element || !property || typeof value !== 'string') return;
 
@@ -177,6 +232,15 @@ class App {
       }
     }
   };
+
+  /**
+   * @private
+   * @method animateStats
+   * @description Анимирует счетчик
+   * @param {HTMLElement} element - HTML элемент
+   * @param {number} duration - Длительность анимации
+   * @returns {void}
+   */
   #animateStats = (element, duration) => {
     const targetValue = parseInt(element.getAttribute('data-count'), 10);
     const startValue = 0;
@@ -196,6 +260,13 @@ class App {
       element.textContent = Math.floor(currentValue);
     }, 10);
   };
+
+  /**
+   * @private
+   * @method observeStatsElements
+   * @description Наблюдает за элементами счетчиков
+   * @returns {void}
+   */
   #observeStatsElements = () => {
     const observerOptions = {
       root: this.#animateStataParams.root,
@@ -219,6 +290,13 @@ class App {
       observer.observe(element);
     });
   };
+
+  /**
+   * @private
+   * @method observeSectionsElements
+   * @description Наблюдает за элементами секций
+   * @returns {void}
+   */
   #observeSectionsElements = () => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -246,6 +324,12 @@ class App {
       observer.observe(section);
     });
   }
+  /**
+   * @private
+   * @method getScrollbarWidth
+   * @description Вычисляет ширину полосы прокрутки
+   * @returns {string} Ширина полосы прокрутки в пикселях
+   */
   #getScrollbarWidth = () => {
     const outer = document.createElement('div')
     this.#safeSetStyle(outer, 'visibility', 'hidden')
@@ -253,14 +337,16 @@ class App {
     this.#safeSetStyle(outer, 'msOverflowStyle', 'scrollbar')
     this.#safeSetStyle(outer, 'width', '100px')
     this.#safeSetStyle(outer, 'height', '100px')
-    this.#safeSetStyle(outer, 'position', 'hidden')
+    //FIX аттрибут postion не имеет значения hidden, но для корректной работы top -9999px необходим postion: absolute
+    this.#safeSetStyle(outer, 'position', 'absolute')
     this.#safeSetStyle(outer, 'top', '-9999px')
 
     document.body.appendChild(outer)
 
     const inner = document.createElement('div')
-    this.#safeSetStyle(outer, 'width', '100%')
-    this.#safeSetStyle(outer, 'height', '100%')
+    //FIX - присвоение внутреннему элементу стилей
+    this.#safeSetStyle(inner, 'width', '100%')
+    this.#safeSetStyle(inner, 'height', '100%')
     outer.appendChild(inner)
 
     const scrollbarWidth = outer.offsetWidth - inner.offsetWidth
@@ -269,6 +355,15 @@ class App {
 
     return scrollbarWidth
   }
+
+  /**
+   * @private
+   * @method setOverflow
+   * @description Управляет overflow и padding для body при открытии/закрытии меню
+   * @param {string} overflow - Значение для свойства overflow
+   * @param {string} [scrollbarWidth='0px'] - Ширина полосы прокрутки
+   * @returns {void}
+   */
   #setOverflow = (status = true) => {
     const scrollbarWidth = status
       ? `${this.#getScrollbarWidth()}px`
@@ -276,20 +371,31 @@ class App {
     const overflow = status
       ? 'hidden'
       : ''
-
-    // this.#safeSetStyle(document.body, 'overflow', overflow)
-    // this.#safeSetStyle(document.body, 'paddingRight', scrollbarWidth)
-    //
-    // this.#safeSetStyle(document.head, 'overflow', overflow)
-    // this.#safeSetStyle(document.head, 'paddingRight', scrollbarWidth)
-
+    
     const html = document.querySelector('html')
-
+    
+    const header = document.querySelector('.header') // получаем header
+    
     this.#safeSetStyle(html, 'overflow', overflow)
-    // this.#safeSetStyle(html, 'paddingRight', scrollbarWidth)
+    //FIX - margin-right делает отсутп для основного контента, убирает "тряску" при открытии модалки
+    this.#safeSetStyle(html, 'margin-right', scrollbarWidth)
+    
+    //FIX - Добавляем тот же padding к header
+    if (header) {
+        this.#safeSetStyle(header, 'padding-right', scrollbarWidth)
+    }
   }
 
-  #fetchAndCache(mediaFileUrl, cache) {
+  /**
+   * @private
+   * @method fetchAndCache
+   * @description Кэширует изображения
+   * @param {string} mediaFileUrl - URL изображения
+   * @param {Cache} cache - Кэш
+   * @returns {Promise}
+   */
+  //FIX - единый код стайл через стрелочную функцию
+  #fetchAndCache = (mediaFileUrl, cache) => {
     return cache.match(mediaFileUrl)
       .then(cacheResponse => {
         if (cacheResponse) {
@@ -303,6 +409,12 @@ class App {
       })
   }
 
+  /**
+   * @private
+   * @method cachedImg
+   * @description Кэширует изображения
+   * @returns {void}
+   */
   #cachedImg = async () => {
     if (location.origin.startsWith('file://') || !('caches' in window)) return;
 
@@ -318,6 +430,12 @@ class App {
     }
   };
 
+  /**
+   * @private
+   * @method modalInit
+   * @description Инициализирует модальные окна
+   * @returns {void}
+   */
   #modalInit = () => {
     let clicked = 0
 
@@ -349,7 +467,7 @@ class App {
         }
       }
     }
-
+    
     this.#modalOpenLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
@@ -392,6 +510,13 @@ class App {
       }
     })
   }
+
+  /**
+   * @private
+   * @method scrollToInit
+   * @description Инициализирует плавную прокрутку к элементам по клику
+   * @returns {void}
+   */
   #scrollToInit = () => {
     const scrollTo = (id) => {
       if (id === 'offer') {
@@ -420,6 +545,13 @@ class App {
       })
     })
   }
+
+  /**
+   * @private
+   * @method burgerInit
+   * @description Инициализирует функциональность бургер-меню
+   * @returns {void}
+   */
   #burgerInit = () => {
     const menuToggle = () => {
       this.#burgerOpen = !this.#burgerOpen
@@ -452,6 +584,13 @@ class App {
       }
     })
   }
+
+  /**
+   * @private
+   * @method formsInit
+   * @description Инициализирует формы
+   * @returns {void}
+   */
   #formsInit = () => {
     const getFormById = (id) => {
       return Array.from(this.#forms).find(form => form.id === id)
@@ -463,10 +602,12 @@ class App {
       }
 
       this.#formsResetAlerts()
-      container.innerHTML = ''
+      //FIX - textContent безопаснее innerHTML
+      container.textContent = ''
       alerts.forEach(alert => {
         const wrapper = document.createElement('p')
-        wrapper.innerHTML = alert
+        //FIX - textContent безопаснее innerHTML, особенно если есть вероятность alert получить с бэка
+        wrapper.textContent = alert
         container.appendChild(wrapper)
       })
 
@@ -474,6 +615,37 @@ class App {
         container.classList.remove('hide')
       }
     }
+    //FIX - добавлена функция для проверки ошибок перед отправкой на бэкенд
+    const getFormErrors = (fields = []) => {
+      const formName = fields[0]?.value
+      const fieldsMap = fields.reduce((acc,el,i)=>{
+        if (i>0) {
+          acc[el.name] = el.value
+        }
+        return acc
+      },{})
+
+      const alerts = []
+      this.#stringValidators[formName].forEach(validator=>{
+        if (!fieldsMap[validator.name].match(validator.rx))
+          alerts.push(validator.alert)  
+      })
+
+      if (formName === 'register-form' && fieldsMap.password !== fieldsMap.password2)
+          alerts.push(this.#fieldErrors.passwordConfirmError)
+      if (alerts.length > 0)
+        return {status:false, data:[], alerts}
+      
+      return null
+    }
+    
+    /**
+     * @private
+     * @method submitForm
+     * @description Отправляет форму
+     * @param {string} id - ID формы
+     * @returns {Promise}
+     */
     const submitForm = async (id) => {
       const form = getFormById(id)
       form.classList.add('fetching')
@@ -485,8 +657,8 @@ class App {
       for (const name in state) {
         fields.push({name, value: state[name].value})
       }
-
-      const {status, data, alerts} = await this.#useFetch(fields)
+      //FIX - вызов функции, если объект с ошибками не получен отправка запроса на бэкенд
+      const {status, data, alerts} = getFormErrors(fields) ?? await this.#useFetch(fields)
 
       const alertContainerClass = status ? '.form-fieldset-success' : '.form-fieldset-error'
       const alertContainer = form.querySelector(alertContainerClass)
@@ -494,43 +666,61 @@ class App {
       renderAlert(alertContainer, status ? alerts : [this.#fieldErrors.checkFormField, ...alerts])
 
       if (status) {
-        setTimeout(() => {
+        //FIX - добавлено для очистки интервалов при редактировании или сабмите форм
+        this.#clearTimeoutIds.push(setTimeout(() => {
           this.#formsReset()
-        }, 10000)
+        }, 10000))
       }
 
       form.classList.remove('fetching')
     }
+    
+    //FIX - добавление листенеров только на формы.
+    if (this.#forms) {
+      this.#forms.forEach(form=> { 
 
-    document.addEventListener('change', e => {
-      const formId = e?.target?.closest('form')?.id
-      if (!formId) {
-        return
-      }
+        form.addEventListener('change', e => {
+          const formId = e?.target?.closest('form')?.id
+          if (!formId) {
+            return
+          }
+          this.#clearTimeouts()
+          const state = this.#formState[formId]
+          const {name, value: rawValue} = e.target
+          state[name].value = rawValue.trim()        
+        })
 
-      const state = this.#formState[formId]
-      const {name, value: rawValue} = e.target
-      state[name].value = rawValue.trim()
-    })
-    document.addEventListener('submit', e => {
-      e.preventDefault()
-      const formId = e?.target?.closest('form')?.id
-      if (!formId) {
-        return
-      }
-
-      submitForm(formId)
-    })
+        form.addEventListener('submit', e => {
+          e.preventDefault()
+          this.#clearTimeouts()
+          const formId = e?.target?.closest('form')?.id
+          if (!formId) {
+            return
+          }
+          submitForm(formId)
+        })  
+      })    
   }
+  }
+  //FIX - добавлена функция, с целью переиспользования
+  #resetAlertsByForm = (form) => form.querySelectorAll('.form-fieldset-alert')
+    .forEach(element => {
+      //FIX - textContent безопаснее innerHTML
+      element.textContent = ''
+      element.classList.add('hide')
+    })
+
+  /**
+   * @private
+   * @method formsReset
+   * @description Сбрасывает формы
+   * @returns {void}
+   */
   #formsReset = () => {
     if (this.#forms) {
       this.#forms.forEach((form) => {
         form.reset()
-        form.querySelectorAll('.form-fieldset-alert')
-          .forEach(element => {
-            element.innerHTML = ''
-            element.classList.add('hide')
-          })
+        this.#resetAlertsByForm(form)
         const state = this.#formState[form.id]
         for (const name in state) {
           state[name] = {
@@ -541,17 +731,19 @@ class App {
       })
     }
   }
+
+  /**
+   * @private
+   * @method formsResetAlerts
+   * @description Сбрасывает ошибки форм
+   * @returns {void}
+   */
   #formsResetAlerts = () => {
     if (this.#forms) {
-      this.#forms.forEach((form) => {
-        form.querySelectorAll('.form-fieldset-alert')
-          .forEach(element => {
-            element.innerHTML = ''
-            element.classList.add('hide')
-          })
-      })
+      this.#forms.forEach((form) => this.#resetAlertsByForm(form))
     }
   }
 }
+
 
 document.addEventListener('DOMContentLoaded', () => new App());
